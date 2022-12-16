@@ -1,17 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import {StepsModule} from 'primeng/steps';
+import {DividerModule} from 'primeng/divider';
+import {SkeletonModule} from 'primeng/skeleton';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 import { SimulatorRoutingModule } from './simulator-routing.module';
 import { SimulatorComponent } from './simulator.component';
+import { GeneralConditionsComponent } from './features/general-conditions/general-conditions.component';
 
 
 @NgModule({
   declarations: [
-    SimulatorComponent
+    SimulatorComponent,
+    GeneralConditionsComponent
   ],
   imports: [
     CommonModule,
-    SimulatorRoutingModule
+    ReactiveFormsModule,
+    SimulatorRoutingModule,
+    StepsModule,
+    DividerModule,
+    SkeletonModule,
+    MultiSelectModule
   ]
 })
 export class SimulatorModule { }
