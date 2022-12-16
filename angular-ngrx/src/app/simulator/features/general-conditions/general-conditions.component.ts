@@ -8,7 +8,7 @@ export interface Item {
 @Component({
   selector: 'app-general-conditions',
   templateUrl: './general-conditions.component.html',
-  styleUrls: ['./general-conditions.component.css'],
+  styleUrls: ['./general-conditions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GeneralConditionsComponent implements OnInit {

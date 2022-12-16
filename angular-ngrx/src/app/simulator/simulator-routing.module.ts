@@ -4,8 +4,9 @@ import { SimulatorComponent } from './simulator.component';
 import { GeneralConditionsComponent } from './features/general-conditions/general-conditions.component';
 
 const routes: Routes = [
-  { path: '', component: SimulatorComponent },
-  { path: 'general-conditions', component: GeneralConditionsComponent }
+  { path: '', component: SimulatorComponent, children: [
+    { path: 'general-conditions', component: GeneralConditionsComponent }
+  ]},
 ];
 
 @NgModule({

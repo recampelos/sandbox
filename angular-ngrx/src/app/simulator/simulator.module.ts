@@ -6,6 +6,8 @@ import {StepsModule} from 'primeng/steps';
 import {DividerModule} from 'primeng/divider';
 import {SkeletonModule} from 'primeng/skeleton';
 import {MultiSelectModule} from 'primeng/multiselect';
+import {FieldsetModule} from 'primeng/fieldset';
+import {DropdownModule} from 'primeng/dropdown';
 
 import { SimulatorRoutingModule } from './simulator-routing.module';
 import { SimulatorComponent } from './simulator.component';
@@ -24,7 +26,9 @@ import { GeneralConditionsComponent } from './features/general-conditions/genera
     StepsModule,
     DividerModule,
     SkeletonModule,
-    MultiSelectModule
+    MultiSelectModule,
+    FieldsetModule,
+    DropdownModule
   ]
 })
 export class SimulatorModule { }
