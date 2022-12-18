@@ -43,10 +43,10 @@ export class TechnicalSheetService {
         readonly: false,
         visible: true
       }
-    }).pipe(delay(2000));
+    });
   }
 
   updateGeneralConditions(data: GeneralConditionsForm): Observable<boolean> {
-    return of(true).pipe(delay(2000));
+    return of(true);
   }
 }

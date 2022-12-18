@@ -1,6 +1,6 @@
-<form novalidate>
-    <div class="field">
-        <label class="block">Sub-Limite</label>
-        <p-dropdown [options]="items" optionLabel="description" optionValue="code"></p-dropdown>
-    </div>
+<form [formGroup]="formGroup" novalidate>
+    <app-sub-limit></app-sub-limit>
+    <app-product></app-product>
 </form>
+<p-button (onClick)="save()">Guardar</p-button>
+<div>Visii{{visibility$ | async | json}}</div>

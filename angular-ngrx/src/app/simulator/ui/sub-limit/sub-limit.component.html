@@ -1,0 +1,4 @@
+<div [formGroup]="formGroup">
+  <label class="block">Sub Limite</label>
+  <p-dropdown [options]="(subLimits$ | async) || []" optionLabel="description" optionValue="code" formControlName="subLimits"></p-dropdown>
+</div>

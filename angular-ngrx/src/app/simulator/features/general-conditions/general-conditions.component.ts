@@ -1,4 +1,12 @@
+import { Observable } from 'rxjs';
+import { of, withLatestFrom } from 'rxjs';
+import { switchMap } from 'rxjs';
+import { tap } from 'rxjs';
+import { map, distinctUntilChanged } from 'rxjs';
+import { SimulatorComponentStore } from './../../store/simulator.component.store';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { TechnicalSheetVisibility } from '../../models/simulator.models';
 
 export interface Item {
   code: string,
@@ -11,22 +19,33 @@ export interface Item {
   styleUrls: ['./general-conditions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GeneralConditionsComponent implements OnInit {
+export class GeneralConditionsComponent {
 
-  items: Item[] = [];
+  formGroup: FormGroup;
 
-  ngOnInit(): void {
-    this.items = [
-      {
-        code: 'Code 1',
-        description: 'Description 1'
-      },{
-        code: 'Code 2',
-        description: 'Description 2'
-      },{
-        code: 'Code 3',
-        description: 'Description 3'
-      }
-    ]
+  visibility$: Observable<TechnicalSheetVisibility | undefined>;
+
+  constructor(private fb: FormBuilder, private store: SimulatorComponentStore) {
+    this.formGroup = fb.nonNullable.group({});
+    this.visibility$ = store.technicalSheetVisibility$;
+
+    store.generalConditionsFrom$.pipe(
+      map((form) => {
+        return {subLimitCode: form.subLimit, productCode: form.subLimit, technicalSheetCode: ''}
+      }),
+      tap(data => store.loadTechnicalSheetVisibility$(of(data)))
+    ).subscribe();
+  }
+
+  register({name, formControl}: {name: string, formControl: FormControl}) {
+    this.formGroup.addControl(name, formControl);
+  }
+
+  unregister({name, formControl}: {name: string, formControl: FormControl}) {
+    this.formGroup.removeControl(name);
+  }
+
+  save() {
+    this.store.updateGeneralConditions$();
   }
 }

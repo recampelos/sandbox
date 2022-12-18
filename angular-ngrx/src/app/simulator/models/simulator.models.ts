@@ -18,8 +18,8 @@ export interface TechnicalSheetVisibility {
 }
 
 export interface GeneralConditionsForm {
-  subLimit: string | null;
-  product: string | null;
-  amount: number | null;
-  amountUnit: string | null;
+  subLimit: string;
+  product: string;
+  amount: number;
+  amountUnit: string;
 }

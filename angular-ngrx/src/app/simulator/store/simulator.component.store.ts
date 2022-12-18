@@ -1,7 +1,7 @@
 import {ComponentStore, tapResponse} from "@ngrx/component-store";
 import {initialState, SimulatorState} from "./simulator.store";
 import {Injectable} from "@angular/core";
-import {catchError, EMPTY, Observable, switchMap, tap} from "rxjs";
+import {catchError, EMPTY, Observable, switchMap, tap, withLatestFrom} from "rxjs";
 import {TechnicalSheetService} from "../services/technical-sheet.service";
 import {
   GeneralConditions,
@@ -17,16 +17,18 @@ export class SimulatorComponentStore extends ComponentStore<SimulatorState> {
     super(initialState);
   }
 
-  readonly technicalSheet$: Observable<TechnicalSheet> = this.select((state) => state?.technicalSheet);
+  readonly technicalSheet$: Observable<TechnicalSheet | undefined> = this.select((state) => state?.technicalSheet);
 
-  readonly technicalSheetVisibility$: Observable<TechnicalSheetVisibility> = this.select((state) => state?.technicalSheetVisibility);
+  readonly technicalSheetVisibility$: Observable<TechnicalSheetVisibility | undefined> = this.select((state) => state?.technicalSheetVisibility);
 
-  readonly generalConditions$: Observable<GeneralConditions> = this.select((state) => state?.technicalSheet?.generalConditions);
+  readonly generalConditions$: Observable<GeneralConditions | undefined> = this.select((state) => state?.technicalSheet?.generalConditions);
 
   readonly generalConditionsFrom$: Observable<GeneralConditionsForm> = this.select((state) => state?.generalConditionsForm);
 
+  readonly isEditable$: Observable<boolean> = this.select((state) => state.isEditable);
+
   readonly loadTechnicalSheetVisibility$ = this.effect(
-    (input$: Observable<{subLimitCode: string, productCode: string, technicalSheetCode: string}>) => {
+    (input$: Observable<{subLimitCode: string, productCode: string, technicalSheetCode: string | undefined}>) => {
       return input$.pipe(
         switchMap(({subLimitCode, productCode, technicalSheetCode}) => this.technicalSheetService.getTechnicalSheetVisibility(subLimitCode, productCode, technicalSheetCode)),
         tap({
@@ -52,10 +54,11 @@ export class SimulatorComponentStore extends ComponentStore<SimulatorState> {
   )
 
   readonly updateGeneralConditions$ = this.effect(
-    () => this.state$.pipe(
-      switchMap(({generalConditionsForm}) => this.technicalSheetService.updateGeneralConditions(generalConditionsForm).pipe(
+    (trigger$) => trigger$.pipe(
+      withLatestFrom(this.generalConditionsFrom$),
+      switchMap(([,generalConditionsForm]) => this.technicalSheetService.updateGeneralConditions(generalConditionsForm).pipe(
         tapResponse(
-          () => console.log('generalConditionsForm updated'),
+          () => console.log('generalConditionsForm updated', generalConditionsForm),
           (e) => console.error(e)
         )
       ))

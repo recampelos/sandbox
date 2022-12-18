@@ -9,12 +9,12 @@ export interface SimulatorState {
 
 export const initialState: SimulatorState = {
   generalConditionsForm: {
-    amount: null,
-    amountUnit: null,
-    product: null,
-    subLimit: null
+    amount: 0,
+    amountUnit: '',
+    product: '',
+    subLimit: ''
   },
-  isEditable: false,
+  isEditable: true,
   technicalSheet: undefined,
   technicalSheetVisibility: undefined
 }
