@@ -9,7 +9,7 @@ export class TechnicalSheetService {
 
   constructor() { }
 
-  getTechnicalSheet(code: string): Observable<TechnicalSheet> {
+  getTechnicalSheet(code: string | null): Observable<TechnicalSheet> {
     return of<TechnicalSheet>({
       code: String(Date.now()),
       generalConditions: {
@@ -29,8 +29,8 @@ export class TechnicalSheetService {
     }).pipe(delay(2000))
   }
 
-  getTechnicalSheetVisibility(subLimitCode: string, productCode: string, technicalSheetCode?: string): Observable<TechnicalSheetVisibility> {
-    return of<TechnicalSheetVisibility>({
+  getTechnicalSheetVisibility(subLimitCode: string, productCode: string, technicalSheetCode?: string | null): Observable<TechnicalSheetVisibility> {
+    return of<TechnicalSheetVisibility>({...{
       amount: {
         readonly: false,
         visible: true
@@ -43,7 +43,7 @@ export class TechnicalSheetService {
         readonly: false,
         visible: true
       }
-    });
+    }});
   }
 
   updateGeneralConditions(data: GeneralConditionsForm): Observable<boolean> {

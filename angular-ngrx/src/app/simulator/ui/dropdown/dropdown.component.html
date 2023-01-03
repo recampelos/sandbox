@@ -1,0 +1,4 @@
+<div [formGroup]="formGroup" *ngIf="visible$ | async">
+    <label class="block">{{label}}</label>
+    <p-dropdown [options]="(values$ | async) || []" optionLabel="description" optionValue="code" formControlName="{{formName}}"></p-dropdown>
+</div>

@@ -40,18 +40,20 @@ export const ObjectUtil = {
   },
 
   setObjectPropertyValue(obj: any, keyParts: string[], propValue: any): any {
-    const propName = keyParts[0];
-    let value: any = ObjectUtil.getObjectValue(obj, propName);
+    const objToProcess = {...obj}
+    const keyParteProcess = [...keyParts];
+    const propName = keyParteProcess[0];
+    let value: any = ObjectUtil.getObjectValue(objToProcess, propName);
 
-    if (keyParts.length === 1) {
-      obj[propName] = propValue;
+    if (keyParteProcess.length === 1) {
+      objToProcess[propName] = propValue;
     } else if (!value || typeof value !== 'object' ) {
       value = {};
     }
 
-    if (keyParts.length > 1) {
-      keyParts.splice(0, 1)
-      obj[propName] = ObjectUtil.setObjectPropertyValue(value, keyParts, propValue);
+    if (keyParteProcess.length > 1) {
+      keyParteProcess.splice(0, 1)
+      objToProcess[propName] = ObjectUtil.setObjectPropertyValue(value, keyParteProcess, propValue);
     }
 
     return obj;

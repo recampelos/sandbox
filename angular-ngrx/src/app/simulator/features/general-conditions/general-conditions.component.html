@@ -1,6 +1,19 @@
 <form [formGroup]="formGroup" novalidate>
-    <app-sub-limit></app-sub-limit>
-    <app-product></app-product>
+    <app-dropdown
+        [formName]="'subLimit'"
+        [label]="'Sub-Limite'"
+        [value$]="service.subLimitFormValue$"
+        [values$]="service.subLimits$"
+        [visibility$]="service.subLimitVisibility$"
+        [updateFn]="service.updateSubLimit"
+    ></app-dropdown>
+    <app-dropdown
+        [formName]="'product'"
+        [label]="'Produto'"
+        [value$]="service.productFormValue$"
+        [values$]="service.products$"
+        [visibility$]="service.productVisibility$"
+        [updateFn]="service.updateProduct"
+    ></app-dropdown>
 </form>
 <p-button (onClick)="save()">Guardar</p-button>
-<div>Visii{{visibility$ | async | json}}</div>

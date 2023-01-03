@@ -7,6 +7,7 @@ import { SimulatorComponentStore } from './../../store/simulator.component.store
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { TechnicalSheetVisibility } from '../../models/simulator.models';
+import { GeneralConditionsManagerService } from '../../services/general-conditions-manager.service';
 
 export interface Item {
   code: string,
@@ -23,18 +24,9 @@ export class GeneralConditionsComponent {
 
   formGroup: FormGroup;
 
-  visibility$: Observable<TechnicalSheetVisibility | undefined>;
-
-  constructor(private fb: FormBuilder, private store: SimulatorComponentStore) {
+  constructor(private fb: FormBuilder, public service: GeneralConditionsManagerService) {
     this.formGroup = fb.nonNullable.group({});
-    this.visibility$ = store.technicalSheetVisibility$;
-
-    store.generalConditionsFrom$.pipe(
-      map((form) => {
-        return {subLimitCode: form.subLimit, productCode: form.subLimit, technicalSheetCode: ''}
-      }),
-      tap(data => store.loadTechnicalSheetVisibility$(of(data)))
-    ).subscribe();
+    
   }
 
   register({name, formControl}: {name: string, formControl: FormControl}) {
@@ -46,6 +38,6 @@ export class GeneralConditionsComponent {
   }
 
   save() {
-    this.store.updateGeneralConditions$();
+    this.service.saveForm();
   }
 }

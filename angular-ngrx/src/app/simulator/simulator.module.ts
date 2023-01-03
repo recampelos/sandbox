@@ -15,17 +15,16 @@ import { SimulatorRoutingModule } from './simulator-routing.module';
 import { SimulatorComponent } from './simulator.component';
 import { GeneralConditionsComponent } from './features/general-conditions/general-conditions.component';
 import {SimulatorComponentStore} from "./store/simulator.component.store";
-import { SubLimitComponent } from './ui/sub-limit/sub-limit.component';
 import { CatalogServiceService } from './services/catalog-service.service';
-import { ProductComponent } from './ui/product/product.component';
+import { DropdownComponent } from './ui/dropdown/dropdown.component';
+import { GeneralConditionsManagerService } from './services/general-conditions-manager.service';
 
 
 @NgModule({
   declarations: [
     SimulatorComponent,
     GeneralConditionsComponent,
-    SubLimitComponent,
-    ProductComponent
+    DropdownComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +41,8 @@ import { ProductComponent } from './ui/product/product.component';
   providers: [
     SimulatorComponentStore,
     CatalogServiceService,
-    TechnicalSheetService
+    TechnicalSheetService,
+    GeneralConditionsManagerService
   ]
 })
 export class SimulatorModule { }

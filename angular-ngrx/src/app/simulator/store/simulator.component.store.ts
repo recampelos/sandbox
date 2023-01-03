@@ -27,33 +27,32 @@ export class SimulatorComponentStore extends ComponentStore<SimulatorState> {
 
   readonly isEditable$: Observable<boolean> = this.select((state) => state.isEditable);
 
-  readonly loadTechnicalSheetVisibility$ = this.effect(
-    (input$: Observable<{subLimitCode: string, productCode: string, technicalSheetCode: string | undefined}>) => {
-      return input$.pipe(
-        switchMap(({subLimitCode, productCode, technicalSheetCode}) => this.technicalSheetService.getTechnicalSheetVisibility(subLimitCode, productCode, technicalSheetCode)),
-        tap({
-          next: () => this.updater((state, visibility: TechnicalSheetVisibility) => ({...state, technicalSheetVisibility: visibility})),
-          error: (e) => console.error(e)
-        }),
-        catchError(() => EMPTY)
-      )
-    }
+  readonly loadTechnicalSheetVisibility = this.effect(
+    (input$: Observable<{subLimitCode: string, productCode: string, technicalSheetCode: string | undefined | null}>) => input$.pipe(
+      tap(console.log),
+      switchMap(({subLimitCode, productCode, technicalSheetCode}) => this.technicalSheetService.getTechnicalSheetVisibility(subLimitCode, productCode, technicalSheetCode)),
+      tap(console.log),
+      tap((visibility) => this.setState((state) => {
+        return {...state, technicalSheetVisibility: visibility};
+      })),
+      catchError(() => EMPTY)
+    )
   )
 
-  readonly loadTechnicalSheet$ = this.effect(
-    (input$: Observable<{technicalSheetCode: string}>) => {
+  readonly loadTechnicalSheet = this.effect(
+    (input$: Observable<{technicalSheetCode: string | null}>) => {
       return input$.pipe(
         switchMap(({technicalSheetCode}) => this.technicalSheetService.getTechnicalSheet(technicalSheetCode)),
-        tap({
-          next: () => this.updater((state, technicalSheet: TechnicalSheet) => ({...state, technicalSheet})),
-          error: (e) => console.error(e)
-        }),
+        tapResponse(
+          () => this.updater((state, technicalSheet: TechnicalSheet) => ({...state, technicalSheet})),
+          (e) => console.error(e)
+        ),
         catchError(() => EMPTY)
       )
     }
   )
 
-  readonly updateGeneralConditions$ = this.effect(
+  readonly updateGeneralConditions = this.effect(
     (trigger$) => trigger$.pipe(
       withLatestFrom(this.generalConditionsFrom$),
       switchMap(([,generalConditionsForm]) => this.technicalSheetService.updateGeneralConditions(generalConditionsForm).pipe(
