@@ -1,0 +1,8 @@
+<ng-container *ngIf="data.stepsVisibility$ | async as stepsVisibility">
+    <mat-stepper>
+        <mat-step *ngIf="stepsVisibility.generalConditions">
+            <ng-template matStepLabel>Condições Gerais</ng-template>
+            <app-general-conditions></app-general-conditions>
+        </mat-step>
+    </mat-stepper>
+</ng-container>

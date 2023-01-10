@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-ngrx": {
+    "angular-rfp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-ngrx",
+            "outputPath": "dist/angular-rfp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -31,9 +31,6 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "node_modules/primeng/resources/themes/bootstrap4-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeicons/primeicons.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -69,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-ngrx:build:production"
+              "browserTarget": "angular-rfp:build:production"
             },
             "development": {
-              "browserTarget": "angular-ngrx:build:development"
+              "browserTarget": "angular-rfp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +77,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-ngrx:build"
+            "browserTarget": "angular-rfp:build"
           }
         },
         "test": {

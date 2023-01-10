@@ -1,0 +1,10 @@
+<div [formGroup]="formGroup">
+    <mat-form-field appearance="fill">
+        <mat-label>Sub-Limite</mat-label>
+        <mat-select formControlName="subLimit">
+            <mat-option *ngFor="let subLimit of data.subLimitsList$ | async" [value]="subLimit.code">
+                {{subLimit.description}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>

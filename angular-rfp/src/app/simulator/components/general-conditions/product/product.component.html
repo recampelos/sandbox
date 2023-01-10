@@ -1,0 +1,10 @@
+<div [formGroup]="formGroup">
+    <mat-form-field appearance="fill">
+        <mat-label>Produto</mat-label>
+        <mat-select formControlName="product">
+            <mat-option *ngFor="let product of data.productsList$ | async" [value]="product.code">
+                {{product.description}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>

@@ -1,0 +1,8 @@
+<ng-container *ngIf="visibility$ | async as visibility">
+    <div [formGroup]="formGroup" *ngIf="visibility.visible">
+        <mat-form-field appearance="fill">
+            <mat-label>Amount</mat-label>
+            <input #amount matInput type="number" formControlName="amount">
+        </mat-form-field>
+    </div>
+</ng-container>

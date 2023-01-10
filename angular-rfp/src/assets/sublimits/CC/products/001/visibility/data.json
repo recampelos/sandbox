@@ -1,0 +1,12 @@
+{
+    "generalConditions": {
+        "amount": {
+            "visible": true,
+            "readOnly": false
+        },
+        "counterValue": {
+            "visible": false,
+            "readOnly": true
+        }
+    }
+}
