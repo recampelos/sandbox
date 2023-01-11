@@ -18,10 +18,14 @@ import { ActionsService } from './share/services/actions.service';
 import { SimulatorStepsComponent } from './components/simulator-steps/simulator-steps.component';
 import { SimulatorActionsComponent } from './components/simulator-actions/simulator-actions.component';
 import { ConfigurationsService } from './services/api/configurations.service';
-import { SimulatorDataService } from './services/simulator-data.service';
+import { SimulatorStore } from './store/simulator-store.service';
 import { RouterParamsService } from './services/router-params.service';
 import { TechnicalSheetDataService } from './services/technical-sheet-data.service';
 import { TechnicalSheetService } from './services/api/technical-sheet.service';
+import { TaskDataService } from './services/task-data.service';
+import { TaskService } from './services/api/task.service';
+import { TechnicalSheetVisibilityDataService } from './services/technical-sheet-visibility-data.service';
+import { SimulatorActionsDataService } from './services/simulator-actions-data.service';
 
 
 @NgModule({
@@ -48,10 +52,14 @@ import { TechnicalSheetService } from './services/api/technical-sheet.service';
     GeneralConditionsDataService,
     ActionsService,
     ConfigurationsService,
-    SimulatorDataService,
+    SimulatorStore,
     RouterParamsService,
+    TechnicalSheetVisibilityDataService,
     TechnicalSheetDataService,
-    TechnicalSheetService
+    TechnicalSheetService,
+    TaskService,
+    TaskDataService,
+    SimulatorActionsDataService
   ]
 })
 export class SimulatorModule { }

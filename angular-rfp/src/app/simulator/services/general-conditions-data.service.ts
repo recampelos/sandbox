@@ -5,7 +5,9 @@ import { debounceTime, map, shareReplay, startWith, switchMap, tap } from 'rxjs/
 import { GeneralConditionsActionsService } from './general-conditions-actions.service';
 import { SubLimitsService } from './api/sublimits.service';
 import { combineLatest } from 'rxjs';
-import { SimulatorDataService } from './simulator-data.service';
+import { SimulatorStore } from '../store/simulator-store.service';
+import { TechnicalSheetDataService } from './technical-sheet-data.service';
+import { TechnicalSheetVisibilityDataService } from './technical-sheet-visibility-data.service';
 
 @Injectable()
 export class GeneralConditionsDataService {
@@ -18,7 +20,7 @@ export class GeneralConditionsDataService {
     tap(() => this.actions.updateAmount.execute(0))
   );
 
-  generalConditionsVisibility$ = this.simulatorData.visibility$.pipe(
+  generalConditionsVisibility$ = this.visibility.visibility$.pipe(
     map(data => data.generalConditions)
   );
 
@@ -27,5 +29,5 @@ export class GeneralConditionsDataService {
     map(value => value * 1.17)
   )
 
-  constructor(private actions: GeneralConditionsActionsService, private subLimitsApi: SubLimitsService, private simulatorData: SimulatorDataService) { }
+  constructor(private actions: GeneralConditionsActionsService, private subLimitsApi: SubLimitsService, private visibility: TechnicalSheetVisibilityDataService) { }
 }

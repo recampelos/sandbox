@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { combineLatest } from 'rxjs';
+import { SubLimitsService } from './api/sublimits.service';
 import { GeneralConditionsActionsService } from './general-conditions-actions.service';
 import { debounceTime, switchMap, shareReplay } from 'rxjs/operators';
-import { SubLimitsService } from './api/sublimits.service';
 
 @Injectable()
-export class SimulatorDataService {
+export class TechnicalSheetVisibilityDataService {
 
   visibility$ = combineLatest([
     this.gcActions.updateProductAction.action$,

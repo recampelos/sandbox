@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { SimulatorDataService } from './simulator-data.service';
+import { SimulatorStore } from '../store/simulator-store.service';
 import { map } from 'rxjs/operators';
+import { TechnicalSheetVisibilityDataService } from './technical-sheet-visibility-data.service';
 
 @Injectable()
 export class SimulatorStepsDataService {
 
-  generalConditionsStepVisibility$ = this.simulatorData.visibility$.pipe(
+  generalConditionsStepVisibility$ = this.visibility.visibility$.pipe(
     map(data => data.generalConditions),
     map(gcVisibility => this.isStepVisible(gcVisibility))
   )
@@ -14,7 +15,7 @@ export class SimulatorStepsDataService {
     map(visible => ({generalConditions: visible}))
   );
 
-  constructor(private simulatorData: SimulatorDataService) { }
+  constructor(private visibility: TechnicalSheetVisibilityDataService) { }
 
   private isStepVisible(step: any) {
     return Object.keys(step).some(key => step[key].visible)
