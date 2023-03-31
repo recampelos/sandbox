@@ -1,0 +1,12 @@
+[
+    {
+        "path": "/mfe1",
+        "host": "http://localhost:4201",
+        "removePath": true
+    },
+    {
+        "path": "/mfe2",
+        "host": "http://localhost:4202",
+        "removePath": true
+    }
+]
